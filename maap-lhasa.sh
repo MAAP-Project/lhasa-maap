@@ -18,15 +18,15 @@ conda=${CONDA_EXE:-conda}
 # Each category has subdirectories for hazard maps and exposure analysis
 
 # Near real-time landslide hazard outputs
-mkdir -p ${workdir}/nrt/hazard/tif
-mkdir -p ${workdir}/nrt/exposure/csv
+mkdir -p ${workdir}/output/nrt/hazard/tif
+mkdir -p ${workdir}/output/nrt/exposure/csv
 
 # Forecast landslide hazard outputs (1-2 days ahead)
-mkdir -p ${workdir}/fcast/hazard/tif
-mkdir -p ${workdir}/fcast/exposure/csv
+mkdir -p ${workdir}/output/fcast/hazard/tif
+mkdir -p ${workdir}/output/fcast/exposure/csv
 
 # Cache directory for IMERG precipitation data downloads
-mkdir -p ${workdir}/imerg
+mkdir -p ${workdir}/output/imerg
 
 # Change to algorithm directory to access LHASA code and configuration
 cd ${algodir}
@@ -39,4 +39,4 @@ ${conda} run -n lhasa python configure_netrc.py
 # Execute LHASA with MAAP-specific configuration
 # -t 4: Use 4 threads for XGBoost model inference
 # --output_path: Direct outputs to working directory instead of algorithm directory
-${conda} run -n lhasa python lhasa.py -t 4 --output_path ${workdir}
+${conda} run -n lhasa python lhasa.py -t 4 --output_path ${workdir}/output
