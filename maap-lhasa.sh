@@ -39,4 +39,4 @@ ${conda} run -n lhasa python configure_netrc.py
 # Execute LHASA with MAAP-specific configuration
 # -t 4: Use 4 threads for XGBoost model inference
 # --output_path: Direct outputs to working directory instead of algorithm directory
-${conda} run -n lhasa python lhasa.py -t 4 --output_path ${workdir}/output
+${conda} run -n lhasa python lhasa.py -t 8 -ex -f nc4tif -output_path ${workdir}/output
