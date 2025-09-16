@@ -42,3 +42,7 @@ ${conda} run -n lhasa python configure_netrc.py
 # -f nc4tif: Set output format to nc4tif for operational usage
 # -op: Direct outputs to working directory instead of algorithm directory
 ${conda} run -n lhasa python lhasa.py -t 8 -ex -f nc4tif -op ${workdir}/output
+
+# Upload outputs to maap-lhasa bucket
+${conda} run -n lhasa aws s3 cp --recursive ${workdir}/output/nrt s3://maap-lhasa/
+${conda} run -n lhasa aws s3 cp --recursive ${workdir}/output/fcast s3://maap-lhasa/
