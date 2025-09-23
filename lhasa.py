@@ -25,6 +25,7 @@ import glob
 import io
 import logging
 import os.path
+import shutil
 import warnings
 import zipfile
 
@@ -1000,6 +1001,7 @@ if __name__ == "__main__":
                 case "fcast":
                     tif_copy = "today.tif" if i < 2 else "tomorrow.tif"
             latest_tif_path = os.path.join(output_path, "latest", tif_copy)
+            os.makedirs(os.path.dirname(latest_tif_path), exist_ok=True)
             shutil.copy2(tif_path, latest_tif_path)
             logging.info(f"saved {latest_tif_path}")
 
