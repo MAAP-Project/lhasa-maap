@@ -993,6 +993,15 @@ if __name__ == "__main__":
         if tif_path:
             save_tiff(p_landslide, tif_path)
             logging.info(f"saved {tif_path}")
+            # Only run this on ADAPT
+            match run_mode:
+                case "nrt":
+                    tif_copy = "yesterday.tif"
+                case "fcast":
+                    tif_copy = "today.tif" if i < 2 else "tomorrow.tif"
+            latest_tif_path = os.path.join(output_path, "latest", tif_copy)
+            shutil.copy2(tif_path, latest_tif_path)
+            logging.info(f"saved {latest_tif_path}")
 
         if args.exposure:
             csv_path = os.path.join(
