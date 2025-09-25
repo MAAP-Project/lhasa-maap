@@ -1,4 +1,4 @@
-G#!/usr/bin/env bash
+#!/usr/bin/env bash
 
 # MAAP Execution Script for LHASA
 # This script runs the LHASA landslide forecasting system on NASA's MAAP platform.
@@ -44,6 +44,4 @@ ${conda} run -n lhasa python configure_netrc.py
 ${conda} run -n lhasa python lhasa.py -t 8 -ex -f nc4tif -op ${workdir}/output
 
 # Upload outputs to maap-lhasa bucket
-${conda} run -n lhasa aws s3 cp --recursive ${workdir}/output/nrt s3://maap-lhasa/
-${conda} run -n lhasa aws s3 cp --recursive ${workdir}/output/fcast s3://maap-lhasa/
-${conda} run -n lhasa aws s3 cp --recursive ${workdir}/output/latest s3://maap-lhasa/
+${conda} run -n lhasa aws s3 cp --recursive ${workdir}/output s3://maap-lhasa/
