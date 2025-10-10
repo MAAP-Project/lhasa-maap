@@ -4,8 +4,14 @@
 # This script runs the LHASA landslide forecasting system on NASA's MAAP platform.
 # It sets up the required output directory structure, configures authentication
 # using MAAP secrets manager, and executes the main LHASA prediction workflow.
+#
+# Usage: maap-lhasa.sh [S3_BUCKET]
+#   S3_BUCKET: Optional S3 bucket name for output (defaults to maap-lhasa)
 
 set -xeou pipefail
+
+# Parse optional S3 bucket argument, default to maap-lhasa
+S3_BUCKET="${1:-maap-lhasa}"
 
 # Store current working directory and determine script location
 workdir=$(pwd)
@@ -43,5 +49,5 @@ ${conda} run -n lhasa python configure_netrc.py
 # -op: Direct outputs to working directory instead of algorithm directory
 ${conda} run -n lhasa python lhasa.py -t 8 -ex -f nc4tif -op ${workdir}/output
 
-# Upload outputs to maap-lhasa bucket
-${conda} run -n lhasa aws s3 cp --recursive ${workdir}/output s3://maap-lhasa/
+# Upload outputs to S3 bucket
+${conda} run -n lhasa aws s3 cp --recursive ${workdir}/output s3://${S3_BUCKET}/
