@@ -25,6 +25,7 @@ import glob
 import io
 import logging
 import os.path
+import shutil
 import warnings
 import zipfile
 
